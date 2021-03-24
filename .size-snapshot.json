@@ -1,8 +1,8 @@
 {
   "index.module.js": {
-    "bundled": 19949,
-    "minified": 8342,
-    "gzipped": 2804,
+    "bundled": 18096,
+    "minified": 8345,
+    "gzipped": 2805,
     "treeshaked": {
       "rollup": {
         "code": 14,
@@ -14,7 +14,7 @@
     }
   },
   "utils.module.js": {
-    "bundled": 7958,
+    "bundled": 7907,
     "minified": 3528,
     "gzipped": 1427,
     "treeshaked": {
@@ -42,7 +42,7 @@
     }
   },
   "immer.module.js": {
-    "bundled": 1626,
+    "bundled": 1524,
     "minified": 797,
     "gzipped": 388,
     "treeshaked": {
@@ -56,7 +56,7 @@
     }
   },
   "optics.module.js": {
-    "bundled": 1683,
+    "bundled": 1685,
     "minified": 825,
     "gzipped": 429,
     "treeshaked": {
@@ -70,9 +70,9 @@
     }
   },
   "query.module.js": {
-    "bundled": 3078,
-    "minified": 1214,
-    "gzipped": 580,
+    "bundled": 3031,
+    "minified": 1270,
+    "gzipped": 597,
     "treeshaked": {
       "rollup": {
         "code": 57,
@@ -98,12 +98,12 @@
     }
   },
   "index.js": {
-    "bundled": 23392,
-    "minified": 10132,
-    "gzipped": 3391
+    "bundled": 21513,
+    "minified": 10135,
+    "gzipped": 3392
   },
   "utils.js": {
-    "bundled": 11093,
+    "bundled": 11044,
     "minified": 5420,
     "gzipped": 2040
   },
@@ -113,19 +113,19 @@
     "gzipped": 651
   },
   "immer.js": {
-    "bundled": 2065,
+    "bundled": 1963,
     "minified": 1062,
     "gzipped": 467
   },
   "optics.js": {
-    "bundled": 1867,
+    "bundled": 1866,
     "minified": 890,
     "gzipped": 468
   },
   "query.js": {
-    "bundled": 3423,
-    "minified": 1459,
-    "gzipped": 640
+    "bundled": 3394,
+    "minified": 1513,
+    "gzipped": 659
   },
   "xstate.js": {
     "bundled": 3061,

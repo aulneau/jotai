@@ -2,6 +2,8 @@ import path from 'path'
 import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import esbuild from 'rollup-plugin-esbuild'
+
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
 
 const createBabelConfig = require('./babel.config')
@@ -32,7 +34,13 @@ function createESMConfig(input, output) {
     external,
     plugins: [
       resolve({ extensions }),
-      typescript(),
+      esbuild({
+        minify: process.env.NODE_ENV === 'production',
+        target: 'esnext',
+        jsxFactory: 'React.createElement',
+        jsxFragment: 'React.Fragment',
+        tsconfig: path.resolve('./tsconfig.json'),
+      }),
       babel(getBabelOptions({ node: 8 })),
       sizeSnapshot(),
     ],
@@ -46,7 +54,13 @@ function createCommonJSConfig(input, output) {
     external,
     plugins: [
       resolve({ extensions }),
-      typescript(),
+      esbuild({
+        minify: process.env.NODE_ENV === 'production',
+        target: 'esnext',
+        jsxFactory: 'React.createElement',
+        jsxFragment: 'React.Fragment',
+        tsconfig: path.resolve('./tsconfig.json'),
+      }),
       babel(getBabelOptions({ ie: 11 })),
       sizeSnapshot(),
     ],
