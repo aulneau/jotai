@@ -1,8 +1,8 @@
 {
   "index.module.js": {
-    "bundled": 7078,
-    "minified": 7066,
-    "gzipped": 2688,
+    "bundled": 19075,
+    "minified": 9162,
+    "gzipped": 2932,
     "treeshaked": {
       "rollup": {
         "code": 14,
@@ -14,9 +14,9 @@
     }
   },
   "utils.module.js": {
-    "bundled": 2997,
-    "minified": 2962,
-    "gzipped": 1367,
+    "bundled": 7803,
+    "minified": 3500,
+    "gzipped": 1402,
     "treeshaked": {
       "rollup": {
         "code": 28,
@@ -28,9 +28,9 @@
     }
   },
   "devtools.module.js": {
-    "bundled": 1023,
-    "minified": 1022,
-    "gzipped": 600,
+    "bundled": 1989,
+    "minified": 1051,
+    "gzipped": 594,
     "treeshaked": {
       "rollup": {
         "code": 28,
@@ -42,9 +42,9 @@
     }
   },
   "immer.module.js": {
-    "bundled": 651,
-    "minified": 632,
-    "gzipped": 375,
+    "bundled": 1526,
+    "minified": 797,
+    "gzipped": 388,
     "treeshaked": {
       "rollup": {
         "code": 42,
@@ -56,9 +56,9 @@
     }
   },
   "optics.module.js": {
-    "bundled": 625,
-    "minified": 610,
-    "gzipped": 381,
+    "bundled": 1676,
+    "minified": 825,
+    "gzipped": 429,
     "treeshaked": {
       "rollup": {
         "code": 32,
@@ -70,9 +70,9 @@
     }
   },
   "query.module.js": {
-    "bundled": 1057,
-    "minified": 1057,
-    "gzipped": 566,
+    "bundled": 2813,
+    "minified": 1214,
+    "gzipped": 583,
     "treeshaked": {
       "rollup": {
         "code": 57,
@@ -84,9 +84,9 @@
     }
   },
   "xstate.module.js": {
-    "bundled": 1142,
-    "minified": 1138,
-    "gzipped": 610,
+    "bundled": 2799,
+    "minified": 1268,
+    "gzipped": 629,
     "treeshaked": {
       "rollup": {
         "code": 29,
@@ -98,38 +98,38 @@
     }
   },
   "index.js": {
-    "bundled": 11118,
-    "minified": 11110,
-    "gzipped": 3527
+    "bundled": 23894,
+    "minified": 12070,
+    "gzipped": 3575
   },
   "utils.js": {
-    "bundled": 5469,
-    "minified": 5411,
-    "gzipped": 2014
+    "bundled": 11956,
+    "minified": 6376,
+    "gzipped": 2064
   },
   "devtools.js": {
-    "bundled": 1187,
-    "minified": 1192,
-    "gzipped": 646
+    "bundled": 2181,
+    "minified": 1190,
+    "gzipped": 645
   },
   "immer.js": {
-    "bundled": 1067,
+    "bundled": 1963,
     "minified": 1062,
     "gzipped": 467
   },
   "optics.js": {
-    "bundled": 957,
+    "bundled": 1866,
     "minified": 890,
     "gzipped": 468
   },
   "query.js": {
-    "bundled": 1483,
+    "bundled": 3225,
     "minified": 1463,
     "gzipped": 643
   },
   "xstate.js": {
-    "bundled": 2548,
-    "minified": 2534,
-    "gzipped": 1156
+    "bundled": 4604,
+    "minified": 2527,
+    "gzipped": 1163
   }
 }

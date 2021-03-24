@@ -7,16 +7,19 @@ import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
 
 const createBabelConfig = require('./babel.config')
 const { root } = path.parse(process.cwd())
-const external = (id) => !id.startsWith('.') && !id.startsWith(root)
+const external = (id) =>
+  (!id.startsWith('.') && !id.startsWith(root)) ||
+  id.startsWith('@babel/runtime')
 
 const extensions = ['.js', '.ts', '.tsx']
 const getBabelOptions = (targets) => ({
   ...createBabelConfig({ env: (env) => env === 'build' }, targets),
   extensions,
+  babelHelpers: 'runtime',
 })
 function getEsbuild(target) {
   return esbuild({
-    minify: true,
+    minify: false,
     target,
     tsconfig: path.resolve('./tsconfig.json'),
   })
