@@ -1,20 +1,24 @@
 import path from 'path'
-import babel from '@rollup/plugin-babel'
+
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import esbuild from 'rollup-plugin-esbuild'
-
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
-
-const createBabelConfig = require('./babel.config')
 
 const { root } = path.parse(process.cwd())
 const external = (id) => !id.startsWith('.') && !id.startsWith(root)
+
 const extensions = ['.js', '.ts', '.tsx']
-const getBabelOptions = (targets) => ({
-  ...createBabelConfig({ env: (env) => env === 'build' }, targets),
-  extensions,
-})
+
+function getEsbuild(target) {
+  return esbuild({
+    minify: true,
+    target: 'es2017' || target,
+    jsxFactory: 'React.createElement',
+    jsxFragment: 'React.Fragment',
+    tsconfig: path.resolve('./tsconfig.json'),
+  })
+}
 
 function createDeclarationConfig(input, output) {
   return {
@@ -32,18 +36,7 @@ function createESMConfig(input, output) {
     input,
     output: { file: output, format: 'esm' },
     external,
-    plugins: [
-      resolve({ extensions }),
-      esbuild({
-        minify: process.env.NODE_ENV === 'production',
-        target: 'esnext',
-        jsxFactory: 'React.createElement',
-        jsxFragment: 'React.Fragment',
-        tsconfig: path.resolve('./tsconfig.json'),
-      }),
-      babel(getBabelOptions({ node: 8 })),
-      sizeSnapshot(),
-    ],
+    plugins: [resolve({ extensions }), getEsbuild('node12'), sizeSnapshot()],
   }
 }
 
@@ -52,18 +45,7 @@ function createCommonJSConfig(input, output) {
     input,
     output: { file: output, format: 'cjs', exports: 'named' },
     external,
-    plugins: [
-      resolve({ extensions }),
-      esbuild({
-        minify: process.env.NODE_ENV === 'production',
-        target: 'esnext',
-        jsxFactory: 'React.createElement',
-        jsxFragment: 'React.Fragment',
-        tsconfig: path.resolve('./tsconfig.json'),
-      }),
-      babel(getBabelOptions({ ie: 11 })),
-      sizeSnapshot(),
-    ],
+    plugins: [resolve({ extensions }), getEsbuild('ie11'), sizeSnapshot()],
   }
 }
 
