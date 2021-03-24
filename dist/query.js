@@ -37,19 +37,19 @@ function atomWithQuery(createQuery) {
     function (get) {
       var options =
         typeof createQuery === 'function' ? createQuery(get) : createQuery
-      var observerAtom = jotai.atom(null, function (get, set, action) {
+      var observerAtom = jotai.atom(null, function (get2, set, action) {
         if (action.type === 'init') {
-          var pending = get(pendingAtom)
+          var pending = get2(pendingAtom)
 
           if (pending.fulfilled) {
-            set(pendingAtom, createPending()) // new fetch
+            set(pendingAtom, createPending())
           }
 
-          action.initializer(getQueryClient(get, set))
+          action.initializer(getQueryClient(get2, set))
         } else if (action.type === 'data') {
           set(dataAtom, action.data)
 
-          var _pending = get(pendingAtom)
+          var _pending = get2(pendingAtom)
 
           if (!_pending.fulfilled) {
             _pending.resolve(action.data)
@@ -63,8 +63,7 @@ function atomWithQuery(createQuery) {
         var initializer = function initializer(queryClient) {
           var observer = new reactQuery.QueryObserver(queryClient, options)
           observer.subscribe(function (result) {
-            // TODO error handling
-            if (result.data !== undefined) {
+            if (result.data !== void 0) {
               dispatch({
                 type: 'data',
                 data: result.data,
@@ -97,20 +96,17 @@ function atomWithQuery(createQuery) {
       return [options, observerAtom]
     },
     function (get, set, action) {
-      if (action.type === 'refetch') {
-        var _queryClient$getQuery
+      var _a
 
+      if (action.type === 'refetch') {
         var _get2 = get(queryAtom),
           options = _get2[0]
 
-        set(pendingAtom, createPending()) // reset pending
-
+        set(pendingAtom, createPending())
         var queryClient = getQueryClient(get, set)
-        ;(_queryClient$getQuery = queryClient
-          .getQueryCache()
-          .find(options.queryKey)) == null
+        ;(_a = queryClient.getQueryCache().find(options.queryKey)) == null
           ? void 0
-          : _queryClient$getQuery.reset()
+          : _a.reset()
         var p = queryClient.refetchQueries(options.queryKey)
         return p
       }
@@ -123,20 +119,19 @@ function atomWithQuery(createQuery) {
       var _get3 = get(queryAtom),
         observerAtom = _get3[1]
 
-      get(observerAtom) // use it here
-
+      get(observerAtom)
       var data = get(dataAtom)
       var pending = get(pendingAtom)
 
       if (!pending.fulfilled) {
         return pending.promise
-      } // we are sure that data is not null
+      }
 
       return data
     },
     function (_get, set, action) {
       return set(queryAtom, action)
-    } // delegate action
+    }
   )
   return queryDataAtom
 }

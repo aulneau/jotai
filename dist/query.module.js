@@ -4,12 +4,10 @@ import { QueryClient, QueryObserver } from 'react-query'
 const queryClientAtom = atom(null)
 const getQueryClient = (get, set) => {
   let queryClient = get(queryClientAtom)
-
   if (queryClient === null) {
     queryClient = new QueryClient()
     set(queryClientAtom, queryClient)
   }
-
   return queryClient
 }
 
@@ -33,40 +31,30 @@ function atomWithQuery(createQuery) {
     (get) => {
       const options =
         typeof createQuery === 'function' ? createQuery(get) : createQuery
-      const observerAtom = atom(null, (get, set, action) => {
+      const observerAtom = atom(null, (get2, set, action) => {
         if (action.type === 'init') {
-          const pending = get(pendingAtom)
-
+          const pending = get2(pendingAtom)
           if (pending.fulfilled) {
-            set(pendingAtom, createPending()) // new fetch
+            set(pendingAtom, createPending())
           }
-
-          action.initializer(getQueryClient(get, set))
+          action.initializer(getQueryClient(get2, set))
         } else if (action.type === 'data') {
           set(dataAtom, action.data)
-          const pending = get(pendingAtom)
-
+          const pending = get2(pendingAtom)
           if (!pending.fulfilled) {
             pending.resolve(action.data)
           }
         }
       })
-
       observerAtom.onMount = (dispatch) => {
         let unsub
-
         const initializer = (queryClient) => {
           const observer = new QueryObserver(queryClient, options)
           observer.subscribe((result) => {
-            // TODO error handling
-            if (result.data !== undefined) {
-              dispatch({
-                type: 'data',
-                data: result.data,
-              })
+            if (result.data !== void 0) {
+              dispatch({ type: 'data', data: result.data })
             }
           })
-
           if (unsub === false) {
             observer.destroy()
           } else {
@@ -75,57 +63,43 @@ function atomWithQuery(createQuery) {
             }
           }
         }
-
-        dispatch({
-          type: 'init',
-          initializer,
-        })
+        dispatch({ type: 'init', initializer })
         return () => {
           if (unsub) {
             unsub()
           }
-
           unsub = false
         }
       }
-
       return [options, observerAtom]
     },
     (get, set, action) => {
+      var _a
       if (action.type === 'refetch') {
-        var _queryClient$getQuery
-
         const [options] = get(queryAtom)
-        set(pendingAtom, createPending()) // reset pending
-
+        set(pendingAtom, createPending())
         const queryClient = getQueryClient(get, set)
-        ;(_queryClient$getQuery = queryClient
-          .getQueryCache()
-          .find(options.queryKey)) == null
+        ;(_a = queryClient.getQueryCache().find(options.queryKey)) == null
           ? void 0
-          : _queryClient$getQuery.reset()
+          : _a.reset()
         const p = queryClient.refetchQueries(options.queryKey)
         return p
       }
-
       return
     }
   )
   const queryDataAtom = atom(
     (get) => {
       const [, observerAtom] = get(queryAtom)
-      get(observerAtom) // use it here
-
+      get(observerAtom)
       const data = get(dataAtom)
       const pending = get(pendingAtom)
-
       if (!pending.fulfilled) {
         return pending.promise
-      } // we are sure that data is not null
-
+      }
       return data
     },
-    (_get, set, action) => set(queryAtom, action) // delegate action
+    (_get, set, action) => set(queryAtom, action)
   )
   return queryDataAtom
 }

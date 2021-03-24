@@ -6,7 +6,6 @@ var immer = require('immer')
 var jotai = require('jotai')
 var react = require('react')
 
-/* eslint-disable import/named */
 function atomWithImmer(initialValue) {
   var anAtom = jotai.atom(initialValue, function (get, set, fn) {
     return set(
@@ -19,7 +18,6 @@ function atomWithImmer(initialValue) {
   return anAtom
 }
 
-/* eslint-disable import/named */
 function useImmerAtom(anAtom) {
   var _useAtom = jotai.useAtom(anAtom),
     state = _useAtom[0],
@@ -71,7 +69,6 @@ var setWeakCacheItem = function setWeakCacheItem(cache, deps, item) {
   setWeakCacheItem(entry[0], rest, item)
 }
 
-/* eslint-disable import/named */
 var withImmerCache = new WeakMap()
 function withImmer(anAtom) {
   var deps = [anAtom]

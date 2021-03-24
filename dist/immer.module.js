@@ -2,7 +2,6 @@ import { produce } from 'immer'
 import { atom, useAtom } from 'jotai'
 import { useCallback } from 'react'
 
-/* eslint-disable import/named */
 function atomWithImmer(initialValue) {
   const anAtom = atom(initialValue, (get, set, fn) =>
     set(
@@ -13,7 +12,6 @@ function atomWithImmer(initialValue) {
   return anAtom
 }
 
-/* eslint-disable import/named */
 function useImmerAtom(anAtom) {
   const [state, setState] = useAtom(anAtom)
   const setStateWithImmer = useCallback(
@@ -28,44 +26,35 @@ function useImmerAtom(anAtom) {
 const getWeakCacheItem = (cache, deps) => {
   const [dep, ...rest] = deps
   const entry = cache.get(dep)
-
   if (!entry) {
     return
   }
-
   if (!rest.length) {
     return entry[1]
   }
-
   return getWeakCacheItem(entry[0], rest)
 }
 const setWeakCacheItem = (cache, deps, item) => {
   const [dep, ...rest] = deps
   let entry = cache.get(dep)
-
   if (!entry) {
     entry = [new WeakMap()]
     cache.set(dep, entry)
   }
-
   if (!rest.length) {
     entry[1] = item
     return
   }
-
   setWeakCacheItem(entry[0], rest, item)
 }
 
-/* eslint-disable import/named */
 const withImmerCache = new WeakMap()
 function withImmer(anAtom) {
   const deps = [anAtom]
   const cachedAtom = getWeakCacheItem(withImmerCache, deps)
-
   if (cachedAtom) {
     return cachedAtom
   }
-
   const derivedAtom = atom(
     (get) => get(anAtom),
     (get, set, fn) =>

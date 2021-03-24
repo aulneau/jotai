@@ -55,6 +55,9 @@
     "**"
   ],
   "sideEffects": false,
+  "engines": {
+    "node": ">=12"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pmndrs/jotai.git"
@@ -74,7 +77,9 @@
     "url": "https://github.com/pmndrs/jotai/issues"
   },
   "homepage": "https://github.com/pmndrs/jotai",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/runtime": "^7.13.10"
+  },
   "peerDependencies": {
     "immer": "*",
     "optics-ts": "*",

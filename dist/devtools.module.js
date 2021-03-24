@@ -3,11 +3,9 @@ import { useAtom } from 'jotai'
 
 function useAtomDevtools(anAtom, name) {
   let extension
-
   try {
     extension = window.__REDUX_DEVTOOLS_EXTENSION__
-  } catch (_unused) {}
-
+  } catch {}
   if (!extension) {
     if (
       typeof process === 'object' &&
@@ -17,7 +15,6 @@ function useAtomDevtools(anAtom, name) {
       console.warn('Please install/enable Redux devtools extension')
     }
   }
-
   const [value, setValue] = useAtom(anAtom)
   const lastValue = useRef(value)
   const isTimeTraveling = useRef(false)
@@ -25,38 +22,24 @@ function useAtomDevtools(anAtom, name) {
   const atomName = name || anAtom.debugLabel || anAtom.toString()
   useEffect(() => {
     if (extension) {
-      devtools.current = extension.connect({
-        name: atomName,
-      })
+      devtools.current = extension.connect({ name: atomName })
       const unsubscribe = devtools.current.subscribe((message) => {
-        var _message$payload3
-
+        var _a, _b, _c, _d
         if (message.type === 'DISPATCH' && message.state) {
-          var _message$payload, _message$payload2
-
           if (
-            ((_message$payload = message.payload) == null
-              ? void 0
-              : _message$payload.type) === 'JUMP_TO_ACTION' ||
-            ((_message$payload2 = message.payload) == null
-              ? void 0
-              : _message$payload2.type) === 'JUMP_TO_STATE'
+            ((_a = message.payload) == null ? void 0 : _a.type) ===
+              'JUMP_TO_ACTION' ||
+            ((_b = message.payload) == null ? void 0 : _b.type) ===
+              'JUMP_TO_STATE'
           ) {
             isTimeTraveling.current = true
           }
-
           setValue(JSON.parse(message.state))
         } else if (
           message.type === 'DISPATCH' &&
-          ((_message$payload3 = message.payload) == null
-            ? void 0
-            : _message$payload3.type) === 'COMMIT'
+          ((_c = message.payload) == null ? void 0 : _c.type) === 'COMMIT'
         ) {
-          var _devtools$current
-
-          ;(_devtools$current = devtools.current) == null
-            ? void 0
-            : _devtools$current.init(lastValue.current)
+          ;(_d = devtools.current) == null ? void 0 : _d.init(lastValue.current)
         }
       })
       devtools.current.shouldInit = true
@@ -66,7 +49,6 @@ function useAtomDevtools(anAtom, name) {
   useEffect(() => {
     if (devtools.current) {
       lastValue.current = value
-
       if (devtools.current.shouldInit) {
         devtools.current.init(value)
         devtools.current.shouldInit = false

@@ -74,56 +74,46 @@ function atomWithReducer(initialValue, reducer) {
   return anAtom
 }
 
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return
-  if (typeof o === 'string') return _arrayLikeToArray(o, minLen)
-  var n = Object.prototype.toString.call(o).slice(8, -1)
-  if (n === 'Object' && o.constructor) n = o.constructor.name
-  if (n === 'Map' || n === 'Set') return Array.from(o)
-  if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-    return _arrayLikeToArray(o, minLen)
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]
-
-  return arr2
-}
-
-function _createForOfIteratorHelperLoose(o, allowArrayLike) {
+function _createForOfIteratorHelperLoose$1(o, allowArrayLike) {
   var it
-
   if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
     if (
       Array.isArray(o) ||
-      (it = _unsupportedIterableToArray(o)) ||
+      (it = _unsupportedIterableToArray$1(o)) ||
       (allowArrayLike && o && typeof o.length === 'number')
     ) {
       if (it) o = it
       var i = 0
       return function () {
-        if (i >= o.length)
-          return {
-            done: true,
-          }
-        return {
-          done: false,
-          value: o[i++],
-        }
+        if (i >= o.length) return { done: true }
+        return { done: false, value: o[i++] }
       }
     }
-
     throw new TypeError(
       'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
     )
   }
-
   it = o[Symbol.iterator]()
   return it.next.bind(it)
 }
 
+function _unsupportedIterableToArray$1(o, minLen) {
+  if (!o) return
+  if (typeof o === 'string') return _arrayLikeToArray$1(o, minLen)
+  var n = Object.prototype.toString.call(o).slice(8, -1)
+  if (n === 'Object' && o.constructor) n = o.constructor.name
+  if (n === 'Map' || n === 'Set') return Array.from(o)
+  if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray$1(o, minLen)
+}
+
+function _arrayLikeToArray$1(arr, len) {
+  if (len == null || len > arr.length) len = arr.length
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i]
+  }
+  return arr2
+}
 function atomFamily(initializeRead, initializeWrite, areEqual) {
   var shouldRemove = null
   var atoms = new Map()
@@ -131,12 +121,11 @@ function atomFamily(initializeRead, initializeWrite, areEqual) {
   var createAtom = function createAtom(param) {
     var item
 
-    if (areEqual === undefined) {
+    if (areEqual === void 0) {
       item = atoms.get(param)
     } else {
-      // Custom comparator, iterate over all elements
       for (
-        var _iterator = _createForOfIteratorHelperLoose(atoms), _step;
+        var _iterator = _createForOfIteratorHelperLoose$1(atoms), _step;
         !(_step = _iterator()).done;
 
       ) {
@@ -151,8 +140,8 @@ function atomFamily(initializeRead, initializeWrite, areEqual) {
       }
     }
 
-    if (item !== undefined) {
-      if (shouldRemove != null && shouldRemove(item[1], param)) {
+    if (item !== void 0) {
+      if (shouldRemove == null ? void 0 : shouldRemove(item[1], param)) {
         atoms.delete(param)
       } else {
         return item[0]
@@ -168,11 +157,11 @@ function atomFamily(initializeRead, initializeWrite, areEqual) {
   }
 
   createAtom.remove = function (param) {
-    if (areEqual === undefined) {
+    if (areEqual === void 0) {
       atoms.delete(param)
     } else {
       for (
-        var _iterator2 = _createForOfIteratorHelperLoose(atoms), _step2;
+        var _iterator2 = _createForOfIteratorHelperLoose$1(atoms), _step2;
         !(_step2 = _iterator2()).done;
 
       ) {
@@ -192,7 +181,7 @@ function atomFamily(initializeRead, initializeWrite, areEqual) {
     if (!shouldRemove) return
 
     for (
-      var _iterator3 = _createForOfIteratorHelperLoose(atoms), _step3;
+      var _iterator3 = _createForOfIteratorHelperLoose$1(atoms), _step3;
       !(_step3 = _iterator3()).done;
 
     ) {
@@ -305,6 +294,47 @@ function useAtomCallback(callback, scope) {
   )
 }
 
+function _createForOfIteratorHelperLoose(o, allowArrayLike) {
+  var it
+  if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
+    if (
+      Array.isArray(o) ||
+      (it = _unsupportedIterableToArray(o)) ||
+      (allowArrayLike && o && typeof o.length === 'number')
+    ) {
+      if (it) o = it
+      var i = 0
+      return function () {
+        if (i >= o.length) return { done: true }
+        return { done: false, value: o[i++] }
+      }
+    }
+    throw new TypeError(
+      'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+    )
+  }
+  it = o[Symbol.iterator]()
+  return it.next.bind(it)
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return
+  if (typeof o === 'string') return _arrayLikeToArray(o, minLen)
+  var n = Object.prototype.toString.call(o).slice(8, -1)
+  if (n === 'Object' && o.constructor) n = o.constructor.name
+  if (n === 'Map' || n === 'Set') return Array.from(o)
+  if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray(o, minLen)
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i]
+  }
+  return arr2
+}
+
 var deepFreeze = function deepFreeze(obj) {
   if (typeof obj !== 'object' || obj === null) return
   Object.freeze(obj)
@@ -354,8 +384,8 @@ var atomFrozenInDev =
 
 var splitAtomCache = new WeakMap()
 
-var isWritable = function isWritable(atom) {
-  return !!atom.write
+var isWritable = function isWritable(atom2) {
+  return !!atom2.write
 }
 
 var isFunction = function isFunction(x) {
@@ -374,20 +404,13 @@ function splitAtom(arrAtom, keyExtractor) {
   var currentKeyList
 
   var keyToAtom = function keyToAtom(key) {
-    var _currentKeyList, _currentAtomList
+    var index = currentKeyList == null ? void 0 : currentKeyList.indexOf(key)
 
-    var index =
-      (_currentKeyList = currentKeyList) == null
-        ? void 0
-        : _currentKeyList.indexOf(key)
-
-    if (index === undefined || index === -1) {
-      return undefined
+    if (index === void 0 || index === -1) {
+      return void 0
     }
 
-    return (_currentAtomList = currentAtomList) == null
-      ? void 0
-      : _currentAtomList[index]
+    return currentAtomList == null ? void 0 : currentAtomList[index]
   }
 
   var read = function read(get) {
@@ -396,51 +419,43 @@ function splitAtom(arrAtom, keyExtractor) {
     get(arrAtom).forEach(function (item, index) {
       var key = keyExtractor ? keyExtractor(item) : index
       nextKeyList[index] = key
-      var cachedAtom = keyToAtom(key)
+      var cachedAtom2 = keyToAtom(key)
 
-      if (cachedAtom) {
-        nextAtomList[index] = cachedAtom
+      if (cachedAtom2) {
+        nextAtomList[index] = cachedAtom2
         return
       }
 
-      var read = function read(get) {
-        var _currentKeyList2
+      var read2 = function read2(get2) {
+        var index2 =
+          currentKeyList == null ? void 0 : currentKeyList.indexOf(key)
 
-        var index =
-          (_currentKeyList2 = currentKeyList) == null
-            ? void 0
-            : _currentKeyList2.indexOf(key)
-
-        if (index === undefined || index === -1) {
+        if (index2 === void 0 || index2 === -1) {
           throw new Error('index not found')
         }
 
-        return get(arrAtom)[index]
+        return get2(arrAtom)[index2]
       }
 
-      var write = function write(get, set, update) {
-        var _currentKeyList3
+      var write2 = function write2(get2, set, update) {
+        var index2 =
+          currentKeyList == null ? void 0 : currentKeyList.indexOf(key)
 
-        var index =
-          (_currentKeyList3 = currentKeyList) == null
-            ? void 0
-            : _currentKeyList3.indexOf(key)
-
-        if (index === undefined || index === -1) {
+        if (index2 === void 0 || index2 === -1) {
           throw new Error('index not found')
         }
 
-        var prev = get(arrAtom)
-        var nextItem = isFunction(update) ? update(prev[index]) : update
+        var prev = get2(arrAtom)
+        var nextItem = isFunction(update) ? update(prev[index2]) : update
         set(
           arrAtom,
-          [].concat(prev.slice(0, index), [nextItem], prev.slice(index + 1))
+          [].concat(prev.slice(0, index2), [nextItem], prev.slice(index2 + 1))
         )
       }
 
       var itemAtom = isWritable(arrAtom)
-        ? jotai.atom(read, write)
-        : jotai.atom(read)
+        ? jotai.atom(read2, write2)
+        : jotai.atom(read2)
       nextAtomList[index] = itemAtom
     })
     currentKeyList = nextKeyList

@@ -77,9 +77,8 @@ var getValueUsingOptic = function getValueUsingOptic(focus, bigValue) {
   }
 
   if (focus._tag === 'Prism') {
-    var _value = O.preview(focus)(bigValue)
-
-    return _value
+    var value2 = O.preview(focus)(bigValue)
+    return value2
   }
 
   var value = O.get(focus)(bigValue)

@@ -4,74 +4,83 @@ Object.defineProperty(exports, '__esModule', { value: true })
 
 var react = require('react')
 
-function _extends() {
-  _extends =
-    Object.assign ||
-    function (target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i]
-
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key]
-          }
-        }
-      }
-
-      return target
-    }
-
-  return _extends.apply(this, arguments)
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return
-  if (typeof o === 'string') return _arrayLikeToArray(o, minLen)
-  var n = Object.prototype.toString.call(o).slice(8, -1)
-  if (n === 'Object' && o.constructor) n = o.constructor.name
-  if (n === 'Map' || n === 'Set') return Array.from(o)
-  if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-    return _arrayLikeToArray(o, minLen)
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]
-
-  return arr2
-}
-
-function _createForOfIteratorHelperLoose(o, allowArrayLike) {
+function _createForOfIteratorHelperLoose$1(o, allowArrayLike) {
   var it
-
   if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
     if (
       Array.isArray(o) ||
-      (it = _unsupportedIterableToArray(o)) ||
+      (it = _unsupportedIterableToArray$1(o)) ||
       (allowArrayLike && o && typeof o.length === 'number')
     ) {
       if (it) o = it
       var i = 0
       return function () {
-        if (i >= o.length)
-          return {
-            done: true,
-          }
-        return {
-          done: false,
-          value: o[i++],
-        }
+        if (i >= o.length) return { done: true }
+        return { done: false, value: o[i++] }
       }
     }
-
     throw new TypeError(
       'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
     )
   }
-
   it = o[Symbol.iterator]()
   return it.next.bind(it)
+}
+
+function _unsupportedIterableToArray$1(o, minLen) {
+  if (!o) return
+  if (typeof o === 'string') return _arrayLikeToArray$1(o, minLen)
+  var n = Object.prototype.toString.call(o).slice(8, -1)
+  if (n === 'Object' && o.constructor) n = o.constructor.name
+  if (n === 'Map' || n === 'Set') return Array.from(o)
+  if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray$1(o, minLen)
+}
+
+function _arrayLikeToArray$1(arr, len) {
+  if (len == null || len > arr.length) len = arr.length
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i]
+  }
+  return arr2
+}
+
+var __defProp$1 = Object.defineProperty
+var __hasOwnProp$1 = Object.prototype.hasOwnProperty
+var __getOwnPropSymbols$1 = Object.getOwnPropertySymbols
+var __propIsEnum$1 = Object.prototype.propertyIsEnumerable
+
+var __defNormalProp$1 = function __defNormalProp(obj, key, value) {
+  return key in obj
+    ? __defProp$1(obj, key, {
+        enumerable: true,
+        configurable: true,
+        writable: true,
+        value: value,
+      })
+    : (obj[key] = value)
+}
+
+var __assign$1 = function __assign(a, b) {
+  for (var prop in b || (b = {})) {
+    if (__hasOwnProp$1.call(b, prop)) __defNormalProp$1(a, prop, b[prop])
+  }
+
+  if (__getOwnPropSymbols$1) {
+    for (
+      var _iterator = _createForOfIteratorHelperLoose$1(
+          __getOwnPropSymbols$1(b)
+        ),
+        _step;
+      !(_step = _iterator()).done;
+
+    ) {
+      var prop = _step.value
+      if (__propIsEnum$1.call(b, prop)) __defNormalProp$1(a, prop, b[prop])
+    }
+  }
+
+  return a
 }
 
 var hasInitialValue = function hasInitialValue(atom) {
@@ -89,13 +98,13 @@ var createState = function createState(initialValues, newAtomReceiver) {
 
   if (initialValues) {
     for (
-      var _iterator = _createForOfIteratorHelperLoose(initialValues), _step;
-      !(_step = _iterator()).done;
+      var _iterator2 = _createForOfIteratorHelperLoose$1(initialValues), _step2;
+      !(_step2 = _iterator2()).done;
 
     ) {
-      var _step$value = _step.value,
-        atom = _step$value[0],
-        value = _step$value[1]
+      var _step2$value = _step2.value,
+        atom = _step2$value[0],
+        value = _step2$value[1]
       var atomState = {
         v: value,
         r: 0,
@@ -123,24 +132,24 @@ var getAtomState = function getAtomState(state, atom) {
 var wipAtomState = function wipAtomState(state, atom, dependencies) {
   var atomState = getAtomState(state, atom)
 
-  var nextAtomState = _extends(
-    {
-      r: 0,
-    },
-    atomState,
+  var nextAtomState = __assign$1(
+    __assign$1(
+      {
+        r: 0,
+      },
+      atomState
+    ),
     {
       d: dependencies
         ? new Map(
             Array.from(dependencies).map(function (a) {
-              var _getAtomState$r, _getAtomState
+              var _a, _b
 
               return [
                 a,
-                (_getAtomState$r =
-                  (_getAtomState = getAtomState(state, a)) == null
-                    ? void 0
-                    : _getAtomState.r) != null
-                  ? _getAtomState$r
+                (_b = (_a = getAtomState(state, a)) == null ? void 0 : _a.r) !=
+                null
+                  ? _b
                   : 0,
               ]
             })
@@ -170,19 +179,16 @@ var setAtomValue = function setAtomValue(
     prevDependencies = _wipAtomState[1]
 
   if (promise && promise !== (atomState == null ? void 0 : atomState.p)) {
-    // newer async read is running, not updating
     return
   }
 
-  delete atomState.e // read error
-
-  delete atomState.p // read promise
-
-  delete atomState.i // invalidated revision
+  delete atomState.e
+  delete atomState.p
+  delete atomState.i
 
   if (!('v' in atomState) || !Object.is(atomState.v, value)) {
     atomState.v = value
-    ++atomState.r // increment revision
+    ++atomState.r
   }
 
   commitAtomState(state, atom, atomState)
@@ -201,16 +207,12 @@ var setAtomReadError = function setAtomReadError(
     prevDependencies = _wipAtomState2[1]
 
   if (promise && promise !== (atomState == null ? void 0 : atomState.p)) {
-    // newer async read is running, not updating
     return
   }
 
-  delete atomState.p // read promise
-
-  delete atomState.i // invalidated revision
-
-  atomState.e = error // read error
-
+  delete atomState.p
+  delete atomState.i
+  atomState.e = error
   commitAtomState(state, atom, atomState)
   mountDependencies(state, atom, atomState, prevDependencies)
 }
@@ -225,8 +227,7 @@ var setAtomReadPromise = function setAtomReadPromise(
     atomState = _wipAtomState3[0],
     prevDependencies = _wipAtomState3[1]
 
-  atomState.p = promise // read promise
-
+  atomState.p = promise
   commitAtomState(state, atom, atomState)
   mountDependencies(state, atom, atomState, prevDependencies)
 }
@@ -235,8 +236,7 @@ var setAtomInvalidated = function setAtomInvalidated(state, atom) {
   var _wipAtomState4 = wipAtomState(state, atom),
     atomState = _wipAtomState4[0]
 
-  atomState.i = atomState.r // invalidated revision
-
+  atomState.i = atomState.r
   commitAtomState(state, atom, atomState)
 }
 
@@ -247,7 +247,7 @@ var setAtomWritePromise = function setAtomWritePromise(state, atom, promise) {
   if (promise) {
     atomState.w = promise
   } else {
-    delete atomState.w // write promise
+    delete atomState.w
   }
 
   commitAtomState(state, atom, atomState)
@@ -272,12 +272,7 @@ var readAtomState = function readAtomState(state, atom, force) {
         if (a !== atom) {
           var aState = getAtomState(state, a)
 
-          if (
-            aState &&
-            !aState.e && // no read error
-            !aState.p && // no read promise
-            aState.r === aState.i // revision is invalidated
-          ) {
+          if (aState && !aState.e && !aState.p && aState.r === aState.i) {
             readAtomState(state, a, true)
           }
         }
@@ -290,10 +285,10 @@ var readAtomState = function readAtomState(state, atom, force) {
           var aState = getAtomState(state, a)
           return (
             aState &&
-            !aState.e && // no read error
-            !aState.p && // no read promise
-            aState.r !== aState.i && // revision is not invalidated
-            aState.r === r // revision is equal to the last one
+            !aState.e &&
+            !aState.p &&
+            aState.r !== aState.i &&
+            aState.r === r
           )
         })
       ) {
@@ -312,27 +307,27 @@ var readAtomState = function readAtomState(state, atom, force) {
       dependencies.add(a)
 
       if (a !== atom) {
-        var _aState = readAtomState(state, a)
+        var aState2 = readAtomState(state, a)
 
-        if (_aState.e) {
-          throw _aState.e // read error
+        if (aState2.e) {
+          throw aState2.e
         }
 
-        if (_aState.p) {
-          throw _aState.p // read promise
+        if (aState2.p) {
+          throw aState2.p
         }
 
-        return _aState.v // value
-      } // a === atom
+        return aState2.v
+      }
 
       var aState = getAtomState(state, a)
 
       if (aState) {
         if (aState.p) {
-          throw aState.p // read promise
+          throw aState.p
         }
 
-        return aState.v // value
+        return aState.v
       }
 
       if (hasInitialValue(a)) {
@@ -344,8 +339,8 @@ var readAtomState = function readAtomState(state, atom, force) {
 
     if (promiseOrValue instanceof Promise) {
       promise = promiseOrValue
-        .then(function (value) {
-          setAtomValue(state, atom, value, dependencies, promise)
+        .then(function (value2) {
+          setAtomValue(state, atom, value2, dependencies, promise)
           flushPending(state)
         })
         .catch(function (e) {
@@ -404,7 +399,7 @@ var addAtom = function addAtom(state, addingAtom) {
 
   flushPending(state)
   return mounted
-} // XXX doesn't work with mutally dependent atoms
+}
 
 var canUnmountAtom = function canUnmountAtom(atom, mounted) {
   return (
@@ -445,10 +440,7 @@ var writeAtomState = function writeAtomState(
 ) {
   var atomState = getAtomState(state, atom)
 
-  if (
-    atomState &&
-    atomState.w // write promise
-  ) {
+  if (atomState && atomState.w) {
     var promise = atomState.w.then(function () {
       writeAtomState(state, atom, update)
       flushPending(state)
@@ -467,7 +459,7 @@ var writeAtomState = function writeAtomState(
         var aState = readAtomState(state, a)
 
         if (aState.e) {
-          throw aState.e // read error
+          throw aState.e
         }
 
         if (aState.p) {
@@ -481,11 +473,11 @@ var writeAtomState = function writeAtomState(
             )
           }
 
-          throw aState.p // read promise
+          throw aState.p
         }
 
         if ('v' in aState) {
-          return aState.v // value
+          return aState.v
         }
 
         if (
@@ -570,13 +562,11 @@ var isActuallyWritableAtom = function isActuallyWritableAtom(atom) {
 }
 
 var mountAtom = function mountAtom(state, atom, initialDependent) {
-  // mount dependencies beforehand
   var atomState = getAtomState(state, atom)
 
   if (atomState) {
     atomState.d.forEach(function (_, a) {
       if (a !== atom) {
-        // check if not mounted
         if (!state.m.has(a)) {
           mountAtom(state, a, atom)
         }
@@ -587,12 +577,12 @@ var mountAtom = function mountAtom(state, atom, initialDependent) {
     process.env.NODE_ENV !== 'production'
   ) {
     console.warn('[Bug] could not find atom state to mount', atom)
-  } // mount self
+  }
 
   var mounted = {
     d: new Set(initialDependent && [initialDependent]),
     l: new Set(),
-    u: undefined,
+    u: void 0,
   }
   state.m.set(atom, mounted)
 
@@ -608,23 +598,20 @@ var mountAtom = function mountAtom(state, atom, initialDependent) {
 }
 
 var unmountAtom = function unmountAtom(state, atom) {
-  var _state$m$get
+  var _a
 
-  // unmount self
-  var onUnmount =
-    (_state$m$get = state.m.get(atom)) == null ? void 0 : _state$m$get.u
+  var onUnmount = (_a = state.m.get(atom)) == null ? void 0 : _a.u
 
   if (onUnmount) {
     onUnmount()
   }
 
-  state.m.delete(atom) // unmount dependencies afterward
-
+  state.m.delete(atom)
   var atomState = getAtomState(state, atom)
 
   if (atomState) {
     if (
-      atomState.p && // read promise
+      atomState.p &&
       typeof process === 'object' &&
       process.env.NODE_ENV !== 'production'
     ) {
@@ -666,7 +653,6 @@ var mountDependencies = function mountDependencies(
         var mounted = state.m.get(a)
 
         if (dependencies.has(a)) {
-          // not changed
           dependencies.delete(a)
         } else if (mounted) {
           mounted.d.delete(atom)
@@ -734,12 +720,6 @@ var subscribeAtom = function subscribeAtom(state, atom, callback) {
   }
 }
 
-/*
-export {
-  unstable_createMutableSource as createMutableSource,
-  unstable_useMutableSource as useMutableSource,
-} from 'react'
-*/
 var TARGET = Symbol()
 var GET_VERSION = Symbol()
 var createMutableSource = function createMutableSource(target, getVersion) {
@@ -759,15 +739,10 @@ var useMutableSource = function useMutableSource(
 
   var _useState = react.useState(function () {
       return [
-        /* [0] */
         source,
-        /* [1] */
         getSnapshot,
-        /* [2] */
         subscribe,
-        /* [3] */
         currentVersion,
-        /* [4] */
         getSnapshot(source[TARGET]),
       ]
     }),
@@ -783,18 +758,7 @@ var useMutableSource = function useMutableSource(
     (currentVersion !== state[3] && currentVersion !== lastVersion.current)
   ) {
     currentSnapshot = getSnapshot(source[TARGET])
-    setState([
-      /* [0] */
-      source,
-      /* [1] */
-      getSnapshot,
-      /* [2] */
-      subscribe,
-      /* [3] */
-      currentVersion,
-      /* [4] */
-      currentSnapshot,
-    ])
+    setState([source, getSnapshot, subscribe, currentVersion, currentSnapshot])
   }
 
   react.useEffect(
@@ -823,21 +787,9 @@ var useMutableSource = function useMutableSource(
               return prev
             }
 
-            return [
-              /* [0] */
-              prev[0],
-              /* [1] */
-              prev[1],
-              /* [2] */
-              prev[2],
-              /* [3] */
-              nextVersion,
-              /* [4] */
-              nextSnapshot,
-            ]
+            return [prev[0], prev[1], prev[2], nextVersion, nextSnapshot]
           })
         } catch (e) {
-          // schedule update
           setState(function (prev) {
             return [].concat(prev)
           })
@@ -877,6 +829,82 @@ var getStoreContext = function getStoreContext(scope) {
   return StoreContextMap.get(scope)
 }
 
+function _createForOfIteratorHelperLoose(o, allowArrayLike) {
+  var it
+  if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
+    if (
+      Array.isArray(o) ||
+      (it = _unsupportedIterableToArray(o)) ||
+      (allowArrayLike && o && typeof o.length === 'number')
+    ) {
+      if (it) o = it
+      var i = 0
+      return function () {
+        if (i >= o.length) return { done: true }
+        return { done: false, value: o[i++] }
+      }
+    }
+    throw new TypeError(
+      'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+    )
+  }
+  it = o[Symbol.iterator]()
+  return it.next.bind(it)
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return
+  if (typeof o === 'string') return _arrayLikeToArray(o, minLen)
+  var n = Object.prototype.toString.call(o).slice(8, -1)
+  if (n === 'Object' && o.constructor) n = o.constructor.name
+  if (n === 'Map' || n === 'Set') return Array.from(o)
+  if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray(o, minLen)
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i]
+  }
+  return arr2
+}
+
+var __defProp = Object.defineProperty
+var __hasOwnProp = Object.prototype.hasOwnProperty
+var __getOwnPropSymbols = Object.getOwnPropertySymbols
+var __propIsEnum = Object.prototype.propertyIsEnumerable
+
+var __defNormalProp = function __defNormalProp(obj, key, value) {
+  return key in obj
+    ? __defProp(obj, key, {
+        enumerable: true,
+        configurable: true,
+        writable: true,
+        value: value,
+      })
+    : (obj[key] = value)
+}
+
+var __assign = function __assign(a, b) {
+  for (var prop in b || (b = {})) {
+    if (__hasOwnProp.call(b, prop)) __defNormalProp(a, prop, b[prop])
+  }
+
+  if (__getOwnPropSymbols) {
+    for (
+      var _iterator = _createForOfIteratorHelperLoose(__getOwnPropSymbols(b)),
+        _step;
+      !(_step = _iterator()).done;
+
+    ) {
+      var prop = _step.value
+      if (__propIsEnum.call(b, prop)) __defNormalProp(a, prop, b[prop])
+    }
+  }
+
+  return a
+}
 var Provider = function Provider(_ref) {
   var initialValues = _ref.initialValues,
     scope = _ref.scope,
@@ -888,21 +916,17 @@ var Provider = function Provider(_ref) {
     process.env.NODE_ENV !== 'production' &&
     process.env.NODE_ENV !== 'test'
   ) {
-    /* eslint-disable react-hooks/rules-of-hooks */
     var atomsRef = react.useRef([])
 
     if (storeRef.current === null) {
-      // lazy initialization
       storeRef.current = createStore(initialValues, function (newAtom) {
         atomsRef.current.push(newAtom)
       })
     }
 
     useDebugState(storeRef.current, atomsRef.current)
-    /* eslint-enable react-hooks/rules-of-hooks */
   } else {
     if (storeRef.current === null) {
-      // lazy initialization
       storeRef.current = createStore(initialValues)
     }
   }
@@ -948,17 +972,14 @@ var stateToPrintable = function stateToPrintable(_ref2) {
 }
 
 var getState = function getState(state) {
-  return _extends({}, state)
-} // shallow copy
-// We keep a reference to the atoms in Provider's atomsRef in dev mode,
-// so atoms aren't garbage collected by the WeakMap of mounted atoms
+  return __assign({}, state)
+}
 
 var useDebugState = function useDebugState(store, atoms) {
   var subscribe = react.useCallback(
-    function (state, callback) {
-      // FIXME we don't need to resubscribe, just need to subscribe for new one
+    function (state2, callback) {
       var unsubs = atoms.map(function (atom) {
-        return subscribeAtom(state, atom, callback)
+        return subscribeAtom(state2, atom, callback)
       })
       return function () {
         unsubs.forEach(function (unsub) {
@@ -972,8 +993,7 @@ var useDebugState = function useDebugState(store, atoms) {
   react.useDebugValue([state, atoms], stateToPrintable)
 }
 
-var keyCount = 0 // global key count for all atoms
-
+var keyCount = 0
 function atom(read, write) {
   var key = 'atom' + ++keyCount
   var config = {
@@ -1013,15 +1033,15 @@ function useAtom(atom) {
       var atomState = readAtom(state, atom)
 
       if (atomState.e) {
-        throw atomState.e // read error
+        throw atomState.e
       }
 
       if (atomState.p) {
-        throw atomState.p // read promise
+        throw atomState.p
       }
 
       if (atomState.w) {
-        throw atomState.w // write promise
+        throw atomState.w
       }
 
       if ('v' in atomState) {

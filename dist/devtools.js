@@ -10,7 +10,7 @@ function useAtomDevtools(anAtom, name) {
 
   try {
     extension = window.__REDUX_DEVTOOLS_EXTENSION__
-  } catch (_unused) {}
+  } catch (e) {}
 
   if (!extension) {
     if (
@@ -37,18 +37,14 @@ function useAtomDevtools(anAtom, name) {
           name: atomName,
         })
         var unsubscribe = devtools.current.subscribe(function (message) {
-          var _message$payload3
+          var _a, _b, _c, _d
 
           if (message.type === 'DISPATCH' && message.state) {
-            var _message$payload, _message$payload2
-
             if (
-              ((_message$payload = message.payload) == null
-                ? void 0
-                : _message$payload.type) === 'JUMP_TO_ACTION' ||
-              ((_message$payload2 = message.payload) == null
-                ? void 0
-                : _message$payload2.type) === 'JUMP_TO_STATE'
+              ((_a = message.payload) == null ? void 0 : _a.type) ===
+                'JUMP_TO_ACTION' ||
+              ((_b = message.payload) == null ? void 0 : _b.type) ===
+                'JUMP_TO_STATE'
             ) {
               isTimeTraveling.current = true
             }
@@ -56,15 +52,11 @@ function useAtomDevtools(anAtom, name) {
             setValue(JSON.parse(message.state))
           } else if (
             message.type === 'DISPATCH' &&
-            ((_message$payload3 = message.payload) == null
-              ? void 0
-              : _message$payload3.type) === 'COMMIT'
+            ((_c = message.payload) == null ? void 0 : _c.type) === 'COMMIT'
           ) {
-            var _devtools$current
-
-            ;(_devtools$current = devtools.current) == null
+            ;(_d = devtools.current) == null
               ? void 0
-              : _devtools$current.init(lastValue.current)
+              : _d.init(lastValue.current)
           }
         })
         devtools.current.shouldInit = true
