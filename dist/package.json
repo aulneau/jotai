@@ -1,0 +1,99 @@
+{
+  "name": "jotai",
+  "private": false,
+  "version": "0.15.3",
+  "description": "👻 Next gen state management that will spook you",
+  "module": "index.module.js",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "typesVersions": {
+    "<4.0": {
+      "*": [
+        "ts3.4/*"
+      ]
+    }
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./index.d.ts",
+      "module": "./index.module.js",
+      "default": "./index.js"
+    },
+    "./utils": {
+      "types": "./utils.d.ts",
+      "module": "./utils.module.js",
+      "default": "./utils.js"
+    },
+    "./devtools": {
+      "types": "./devtools.d.ts",
+      "module": "./devtools.module.js",
+      "default": "./devtools.js"
+    },
+    "./immer": {
+      "types": "./immer.d.ts",
+      "module": "./immer.module.js",
+      "default": "./immer.js"
+    },
+    "./optics": {
+      "types": "./optics.d.ts",
+      "module": "./optics.module.js",
+      "default": "./optics.js"
+    },
+    "./query": {
+      "types": "./query.d.ts",
+      "module": "./query.module.js",
+      "default": "./query.js"
+    },
+    "./xstate": {
+      "types": "./xstate.d.ts",
+      "module": "./xstate.module.js",
+      "default": "./xstate.js"
+    }
+  },
+  "files": [
+    "**"
+  ],
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmndrs/jotai.git"
+  },
+  "keywords": [
+    "react",
+    "state",
+    "manager",
+    "management",
+    "recoil",
+    "store"
+  ],
+  "author": "Daishi Kato",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pmndrs/jotai/issues"
+  },
+  "homepage": "https://github.com/pmndrs/jotai",
+  "dependencies": {},
+  "peerDependencies": {
+    "immer": "*",
+    "optics-ts": "*",
+    "react": ">=16.8",
+    "react-query": "*",
+    "xstate": "*"
+  },
+  "peerDependenciesMeta": {
+    "immer": {
+      "optional": true
+    },
+    "optics-ts": {
+      "optional": true
+    },
+    "react-query": {
+      "optional": true
+    },
+    "xstate": {
+      "optional": true
+    }
+  }
+}
