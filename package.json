@@ -80,6 +80,9 @@
       "pre-commit": "lint-staged"
     }
   },
+  "engines": {
+    "node": ">=12"
+  },
   "prettier": {
     "semi": false,
     "trailingComma": "es5",
